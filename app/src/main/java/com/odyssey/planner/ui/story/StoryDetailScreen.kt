@@ -16,10 +16,12 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Chat
+import androidx.compose.material.icons.filled.Extension
 import androidx.compose.material.icons.filled.Map
 import androidx.compose.material.icons.filled.Place
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -47,7 +49,8 @@ import com.odyssey.planner.data.StoryRepository
 @Composable
 fun StoryDetailScreen(
     storyId: String,
-    onBack: () -> Unit
+    onBack: () -> Unit,
+    onStartGame: (String) -> Unit = {}
 ) {
     val story = StoryRepository.getById(storyId)
 
@@ -92,6 +95,7 @@ fun StoryDetailScreen(
 
         StoryDetailContent(
             story = story,
+            onStartGame = onStartGame,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
@@ -104,6 +108,7 @@ fun StoryDetailScreen(
 @Composable
 private fun StoryDetailContent(
     story: Story,
+    onStartGame: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier) {
@@ -156,6 +161,21 @@ private fun StoryDetailContent(
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onBackground
         )
+
+        // —— 互动彩蛋（数据驱动，仅当该故事配置了互动时显示）——
+        story.interactiveGame?.let { gameId ->
+            Spacer(modifier = Modifier.height(24.dp))
+            SectionLabel("互动彩蛋")
+            Spacer(modifier = Modifier.height(8.dp))
+            Button(
+                onClick = { onStartGame(gameId) },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Icon(Icons.Filled.Extension, contentDescription = null, modifier = Modifier.size(18.dp))
+                Spacer(modifier = Modifier.size(8.dp))
+                Text("开始互动：逃出独眼巨人的洞穴")
+            }
+        }
 
         Spacer(modifier = Modifier.height(28.dp))
         // —— 后续里程碑入口（占位）——

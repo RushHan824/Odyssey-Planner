@@ -6,13 +6,16 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.odyssey.planner.ui.game.CyclopsEscapeGame
 import com.odyssey.planner.ui.story.StoryDetailScreen
 import com.odyssey.planner.ui.story.StoryListScreen
 
 private object Routes {
     const val LIST = "story_list"
     const val DETAIL = "story_detail"
+    const val GAME = "story_game"
     const val ARG_STORY_ID = "storyId"
+    const val ARG_GAME_ID = "gameId"
 }
 
 /**
@@ -40,8 +43,21 @@ fun OdysseyApp() {
             val storyId = backStackEntry.arguments?.getString(Routes.ARG_STORY_ID).orEmpty()
             StoryDetailScreen(
                 storyId = storyId,
-                onBack = { navController.popBackStack() }
+                onBack = { navController.popBackStack() },
+                onStartGame = { gameId ->
+                    navController.navigate("${Routes.GAME}/$gameId")
+                }
             )
+        }
+        composable(
+            route = "${Routes.GAME}/{${Routes.ARG_GAME_ID}}",
+            arguments = listOf(navArgument(Routes.ARG_GAME_ID) { type = NavType.StringType })
+        ) { backStackEntry ->
+            val gameId = backStackEntry.arguments?.getString(Routes.ARG_GAME_ID).orEmpty()
+            when (gameId) {
+                "cyclops_escape" -> CyclopsEscapeGame(onBack = { navController.popBackStack() })
+                else -> CyclopsEscapeGame(onBack = { navController.popBackStack() })
+            }
         }
     }
 }
