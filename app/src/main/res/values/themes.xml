@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.LaunchModeDemo" parent="Theme.Material3.DayNight" />
+    <!--
+        仅作为启动窗口主题使用（Compose 内部由 OdysseyTheme 接管配色）。
+        使用系统自带的 NoActionBar 主题，避免引入额外的 Material XML 主题库依赖。
+    -->
+    <style name="Theme.OdysseyPlanner" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@color/parchment</item>
+        <item name="android:statusBarColor">@color/aegean_blue</item>
+    </style>
 </resources>
