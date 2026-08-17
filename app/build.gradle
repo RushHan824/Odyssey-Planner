@@ -3,6 +3,15 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
+// 从 local.properties 读取高德地图 API Key（避免把密钥硬编码进版本库）
+def amapApiKey = ""
+def localPropsFile = rootProject.file("local.properties")
+if (localPropsFile.exists()) {
+    def props = new Properties()
+    localPropsFile.withInputStream { props.load(it) }
+    amapApiKey = props.getProperty("AMAP_API_KEY", "")
+}
+
 android {
     namespace 'com.odyssey.planner'
     compileSdk 34
@@ -17,6 +26,9 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
+
+        // 高德地图 API Key 通过占位符注入 AndroidManifest
+        manifestPlaceholders = [AMAP_API_KEY: amapApiKey]
     }
 
     buildTypes {
@@ -40,7 +52,6 @@ android {
     }
 
     composeOptions {
-        // 与 Kotlin 1.9.24 匹配的 Compose Compiler 版本
         kotlinCompilerExtensionVersion '1.5.14'
     }
 
@@ -52,6 +63,9 @@ android {
 }
 
 dependencies {
+    // 高德地图 3D SDK（版本号如与高德官网不符，可在此调整）
+    implementation 'com.amap.api:3dmap:9.8.2'
+
     implementation 'androidx.core:core-ktx:1.13.1'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.8.3'
     implementation 'androidx.activity:activity-compose:1.9.0'
