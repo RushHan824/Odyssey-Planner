@@ -6,7 +6,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.odyssey.planner.data.InteractionRepository
 import com.odyssey.planner.ui.game.CyclopsEscapeGame
+import com.odyssey.planner.ui.game.StoryInteractionGame
 import com.odyssey.planner.ui.story.StoryDetailScreen
 import com.odyssey.planner.ui.story.StoryListScreen
 
@@ -54,9 +56,18 @@ fun OdysseyApp() {
             arguments = listOf(navArgument(Routes.ARG_GAME_ID) { type = NavType.StringType })
         ) { backStackEntry ->
             val gameId = backStackEntry.arguments?.getString(Routes.ARG_GAME_ID).orEmpty()
-            when (gameId) {
-                "cyclops_escape" -> CyclopsEscapeGame(onBack = { navController.popBackStack() })
-                else -> CyclopsEscapeGame(onBack = { navController.popBackStack() })
+            if (gameId == "cyclops_escape") {
+                CyclopsEscapeGame(onBack = { navController.popBackStack() })
+            } else {
+                val interaction = InteractionRepository.get(gameId)
+                if (interaction != null) {
+                    StoryInteractionGame(
+                        interaction = interaction,
+                        onBack = { navController.popBackStack() }
+                    )
+                } else {
+                    CyclopsEscapeGame(onBack = { navController.popBackStack() })
+                }
             }
         }
     }

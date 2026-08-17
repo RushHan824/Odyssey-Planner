@@ -38,6 +38,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
+import com.odyssey.planner.data.InteractionRepository
 import com.odyssey.planner.data.Story
 import com.odyssey.planner.data.StoryRepository
 
@@ -162,8 +163,9 @@ private fun StoryDetailContent(
             color = MaterialTheme.colorScheme.onBackground
         )
 
-        // —— 互动彩蛋（数据驱动，仅当该故事配置了互动时显示）——
-        story.interactiveGame?.let { gameId ->
+        // —— 互动彩蛋（独眼巨人为特制版，其余由通用互动引擎驱动）——
+        val gameId = story.interactiveGame ?: story.id
+        if (story.interactiveGame != null || InteractionRepository.has(story.id)) {
             Spacer(modifier = Modifier.height(24.dp))
             SectionLabel("互动彩蛋")
             Spacer(modifier = Modifier.height(8.dp))
@@ -173,7 +175,7 @@ private fun StoryDetailContent(
             ) {
                 Icon(Icons.Filled.Extension, contentDescription = null, modifier = Modifier.size(18.dp))
                 Spacer(modifier = Modifier.size(8.dp))
-                Text("开始互动：逃出独眼巨人的洞穴")
+                Text("开始互动")
             }
         }
 
