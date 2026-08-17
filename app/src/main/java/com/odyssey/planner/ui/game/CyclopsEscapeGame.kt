@@ -556,7 +556,7 @@ private fun DrawScope.drawVictoryScene(pulse: Float, wave: Float) {
 
     val starC = Offset(w * 0.8f, h * 0.22f)
     val starPath = Path().apply {
-        val r = h * 0.09f
+        val r = h * 0.09f * pulse
         moveTo(starC.x, starC.y - r)
         lineTo(starC.x + r * 0.28f, starC.y - r * 0.28f)
         lineTo(starC.x + r, starC.y)
@@ -567,7 +567,7 @@ private fun DrawScope.drawVictoryScene(pulse: Float, wave: Float) {
         lineTo(starC.x - r * 0.28f, starC.y - r * 0.28f)
         close()
     }
-    drawPath(starPath, color = GoldTone.copy(alpha = 0.5f + 0.5f * pulse))
+    drawPath(starPath, color = GoldTone.copy(alpha = (0.35f + 0.55f * wave).coerceIn(0f, 1f)))
 
     val seaTop = h * 0.6f
     drawWave(seaTop, wave, SeaBlue.copy(alpha = 0.9f), h * 0.05f)
