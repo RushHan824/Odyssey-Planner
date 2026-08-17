@@ -51,7 +51,8 @@ import com.odyssey.planner.data.StoryRepository
 fun StoryDetailScreen(
     storyId: String,
     onBack: () -> Unit,
-    onStartGame: (String) -> Unit = {}
+    onStartGame: (String) -> Unit = {},
+    onViewMap: (String) -> Unit = {}
 ) {
     val story = StoryRepository.getById(storyId)
 
@@ -97,6 +98,7 @@ fun StoryDetailScreen(
         StoryDetailContent(
             story = story,
             onStartGame = onStartGame,
+            onViewMap = onViewMap,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
@@ -110,6 +112,7 @@ fun StoryDetailScreen(
 private fun StoryDetailContent(
     story: Story,
     onStartGame: (String) -> Unit,
+    onViewMap: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier) {
@@ -180,17 +183,17 @@ private fun StoryDetailContent(
         }
 
         Spacer(modifier = Modifier.height(28.dp))
-        // —— 后续里程碑入口（占位）——
-        OutlinedButton(
-            onClick = { },
-            enabled = false,
+        // —— 在地图上查看真实地点（M3）——
+        Button(
+            onClick = { onViewMap(story.id) },
             modifier = Modifier.fillMaxWidth()
         ) {
             Icon(Icons.Filled.Map, contentDescription = null, modifier = Modifier.size(18.dp))
             Spacer(modifier = Modifier.size(8.dp))
-            Text("在地图上查看 · 即将上线")
+            Text("在地图上查看真实地点")
         }
         Spacer(modifier = Modifier.height(10.dp))
+        // —— M2 入口（占位）——
         OutlinedButton(
             onClick = { },
             enabled = false,
