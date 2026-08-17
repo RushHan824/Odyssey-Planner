@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- 船体（新月形，深金） -->
+    <path
+        android:pathData="M28,66 C39,74 47,76 54,76 C61,76 69,74 80,66 C76,75 66,81 54,81 C42,81 32,75 28,66 Z"
+        android:fillColor="#D9B84A" />
+
+    <!-- 桅杆（深金） -->
+    <path
+        android:pathData="M52.5,40 L55.5,40 L55.5,73 L52.5,73 Z"
+        android:fillColor="#C9A227" />
+
+    <!-- 副帆（左侧，中金） -->
+    <path
+        android:pathData="M52,46 C45,49 41,54 40,60 L52,66 Z"
+        android:fillColor="#E8C95E" />
+
+    <!-- 主帆（右侧鼓起，亮金） -->
+    <path
+        android:pathData="M56,42 C68,46 75,54 76,62 L56,68 Z"
+        android:fillColor="#F2D66A" />
+
+    <!-- 指引归乡的星（四角星，最亮金） -->
+    <path
+        android:pathData="M54,20 L57,27 L64,30 L57,33 L54,40 L51,33 L44,30 L51,27 Z"
+        android:fillColor="#F5E08A" />
+</vector>
