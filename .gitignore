@@ -1,3 +1,21 @@
+# Built application files
+*.apk
+*.aar
+*.ap_
+*.aab
+
+# Files for the ART/Dalvik VM
+*.dex
+
+# Java class files
+*.class
+
+# Generated files
+bin/
+gen/
+out/
+release/
+
 # Gradle files
 .gradle/
 build/
@@ -7,16 +25,15 @@ local.properties
 
 # Log/OS Files
 *.log
+.DS_Store
 
 # Android Studio generated files and folders
 captures/
 .externalNativeBuild/
 .cxx/
-*.aab
-*.apk
 output-metadata.json
 
-# IntelliJ
+# IntelliJ / Android Studio
 *.iml
 .idea/
 misc.xml
@@ -32,3 +49,6 @@ google-services.json
 
 # Android Profiling
 *.hprof
+
+# Kotlin
+.kotlin/
